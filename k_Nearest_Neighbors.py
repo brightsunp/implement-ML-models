@@ -56,7 +56,7 @@ def calc_accuracy(test_set, predictions):
 
 
 if __name__ == '__main__':
-    data_file = './datasets/iris.data'
+    data_file = './datasets/iris.csv'
     train_set, test_set = load_data(data_file, 0.8)
     print('Train set:', len(train_set))
     print('Test set:', len(test_set))
