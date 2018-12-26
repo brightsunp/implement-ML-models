@@ -1,0 +1,12 @@
+# Environments
+venv/
+.idea/
+
+# Cache
+__pycache__/
+*.log
+*.pyc
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb
