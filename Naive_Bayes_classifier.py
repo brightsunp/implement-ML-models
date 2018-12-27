@@ -5,7 +5,7 @@ __author__ = 'sunp'
 __date__ = '2018/12/26'
 '''
 
-import csv, random, math
+import os, csv, random, math
 
 
 # 1. Handle data
@@ -42,7 +42,7 @@ def summarize_by_label(data_set):
     res = {}
     for label, datas in sep.items():
         summaries = [(calc_mean(attr), calc_stdev(attr)) for attr in zip(*datas)]
-        summaries.pop()
+        del(summaries[-1])
         res[label] = summaries
     return res
 
@@ -81,8 +81,8 @@ def calc_accuracy(test_set, predictions):
 
 
 if __name__ == '__main__':
-    data_file = './datasets/pima-indians-diabetes.csv'
-    train_set, test_set = load_data(data_file, 0.8)
+    data_dir = './datasets'
+    train_set, test_set = load_data(os.path.join(data_dir, 'pima-indians-diabetes.csv'), 0.8)
     print('Train set:', len(train_set))
     print('Test set:', len(test_set))
     train_summarized = summarize_by_label(train_set)

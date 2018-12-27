@@ -5,7 +5,7 @@ __author__ = 'sunp'
 __date__ = '2018/12/26'
 '''
 
-import csv, random, math
+import os, csv, random, math
 
 
 # 1. Handle data
@@ -56,8 +56,8 @@ def calc_accuracy(test_set, predictions):
 
 
 if __name__ == '__main__':
-    data_file = './datasets/iris.csv'
-    train_set, test_set = load_data(data_file, 0.8)
+    data_dir = './datasets'
+    train_set, test_set = load_data(os.path.join(data_dir, 'iris.csv'), 0.8)
     print('Train set:', len(train_set))
     print('Test set:', len(test_set))
     predictions = []
