@@ -58,7 +58,7 @@ def logistic_regression(train_set, test_set, learning_rate, n_epoch):
 
 
 if __name__ == '__main__':
-    data_dir = './datasets'
+    data_dir = '../datasets'
     dataset = load_data(os.path.join(data_dir, 'pima-indians-diabetes.csv'))
     normalize_dataset(dataset)
     learning_rate, n_epoch, n_folds = 0.1, 100, 5

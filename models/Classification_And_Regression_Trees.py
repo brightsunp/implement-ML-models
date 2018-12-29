@@ -162,7 +162,7 @@ def evaluate_algrorithm(dataset, algorithm, n_folds, *args):
 
 
 if __name__ == '__main__':
-    data_dir = './datasets'
+    data_dir = '../datasets'
     dataset = load_data(os.path.join(data_dir, 'banknote_authentication.csv'))
     max_depth, min_size, n_folds = 5, 10, 5
     scores = evaluate_algrorithm(dataset, decision_tree, n_folds, max_depth, min_size)

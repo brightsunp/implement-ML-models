@@ -81,7 +81,7 @@ def calc_accuracy(test_set, predictions):
 
 
 if __name__ == '__main__':
-    data_dir = './datasets'
+    data_dir = '../datasets'
     train_set, test_set = load_data(os.path.join(data_dir, 'pima-indians-diabetes.csv'), 0.8)
     print('Train set:', len(train_set))
     print('Test set:', len(test_set))
