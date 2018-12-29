@@ -36,7 +36,7 @@ def coefficients_sgd(train_set, learning_rate, n_epoch):
     '''
     coef = [0.0] * len(train_set[0])
     for epoch in range(n_epoch):
-        sum_error = 0
+        sum_error = 0.0
         for row in train_set:
             pred = predict(row, coef)
             error = row[-1] - pred
@@ -46,11 +46,11 @@ def coefficients_sgd(train_set, learning_rate, n_epoch):
             coef[0] += learning_rate * error * pred * (1 - pred)
             for i in range(len(row) - 1):
                 coef[i+1] += learning_rate * error * pred * (1 - pred) * row[i]
-        print('>epoch={}, learning_rate={:.3f}, error={:.3f}'.format(epoch, learning_rate, sum_error))
+        print('>epoch={}, learning_rate={}, error={:.3f}'.format(epoch, learning_rate, sum_error))
     return coef
 
 
-# regression model
+# Logistic Regression
 def logistic_regression(train_set, test_set, learning_rate, n_epoch):
     coef = coefficients_sgd(train_set, learning_rate, n_epoch)
     predictions = [round(predict(row, coef)) for row in test_set]
