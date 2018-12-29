@@ -123,10 +123,7 @@ def predict(node, row):
 def decision_tree(train_set, test_set, max_depth, min_size):
     tree = build_tree(train_set, max_depth, min_size)
     print_tree(tree)
-    predictions = []
-    for row in test_set:
-        prediction = predict(tree, row)
-        predictions.append(prediction)
+    predictions = [predict(tree, row) for row in test_set]
     return predictions
 
 
@@ -150,7 +147,7 @@ def calc_accuracy(test_set, predictions):
     return sum(is_correct) * 1.0 / len(is_correct)
 
 
-def evaluate(dataset, model, n_folds, *args):
+def evaluate_algrorithm(dataset, algorithm, n_folds, *args):
     accuracies = []
     folds = cross_validation_split(dataset, n_folds)
     for fold in folds:
@@ -158,7 +155,7 @@ def evaluate(dataset, model, n_folds, *args):
         train_set.remove(fold)
         # convert list-of-lists to list
         train_set = sum(train_set, [])
-        predictions = model(train_set, test_set, *args)
+        predictions = algorithm(train_set, test_set, *args)
         accuracy = calc_accuracy(test_set, predictions)
         accuracies.append(accuracy)
     return accuracies
@@ -168,5 +165,5 @@ if __name__ == '__main__':
     data_dir = './datasets'
     dataset = load_data(os.path.join(data_dir, 'banknote_authentication.csv'))
     max_depth, min_size, n_folds = 5, 10, 5
-    scores = evaluate(dataset, decision_tree, n_folds, max_depth, min_size)
+    scores = evaluate_algrorithm(dataset, decision_tree, n_folds, max_depth, min_size)
     print('Scores:', scores)
