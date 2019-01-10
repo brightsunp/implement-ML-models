@@ -3,6 +3,10 @@
 '''
 __author__ = 'sunp'
 __date__ = '2019/1/4'
+
+Background:
+1989, IBM-PBMT: phrase-based, statistical
+2016, Google-NMT: seq2seq, neural
 '''
 
 import os, re, string, pickle
