@@ -11,6 +11,6 @@ Background:
     It can approximate any continuous function infinitely.
 1990s, Vapnik-SVM: beat NN
 2006, Hinton-Deep Learning: performed up-and-coming in SR & CV
-    Big Four: Andrew Ng, Hinton, Yann LeCun, Bengio
+    Big Four: Andrew Ng, Yoshua Bengio, Yann LeCun, Geoffrey Hinton
 '''
 
