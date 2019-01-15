@@ -26,6 +26,7 @@ def load_data(data_file):
                  for line in f.readlines()]
         return pairs
 
+
 # 2. Define Network
 def define_model(src_vocab, tar_vocab, src_timesteps, tar_timesteps, n_units):
     model = Sequential()
@@ -46,4 +47,5 @@ def define_model(src_vocab, tar_vocab, src_timesteps, tar_timesteps, n_units):
 
 
 if __name__ == '__main__':
-    pass
+    data_dir = '../datasets'
+    train_set, test_set = load_data(os.path.join(data_dir, 'cmn-eng', 'cmn.txt'))

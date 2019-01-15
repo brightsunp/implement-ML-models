@@ -6,7 +6,7 @@ __date__ = '2018/12/29'
 '''
 
 import os, math
-from Classification_And_Regression_Trees import load_data, evaluate_algrorithm
+from common import load_classified_data, evaluate_algrorithm
 
 
 # hypothesis: sign function
@@ -23,7 +23,7 @@ def weights_sgd(train_set, learning_rate, n_epoch):
     learning_rate: Used to limit the amount each coefficient is corrected each time it is updated.
     n_epoch: The number of times to run through the training data while updating the coefficients.
     '''
-    weights = [0.0] * len(train_set[0])
+    weights = [0.0 for _ in range(len(train_set[0]))]
     for epoch in range(n_epoch):
         sum_error = 0.0
         for row in train_set:
@@ -46,9 +46,14 @@ def perceptron(train_set, test_set, learning_rate, n_epoch):
     return predictions
 
 
+def calc_accuracy(test_set, predictions):
+    is_correct = [test[-1] == pred for test, pred in zip(test_set, predictions)]
+    return sum(is_correct) * 1.0 / len(is_correct)
+
+
 if __name__ == '__main__':
     data_dir = '../datasets'
-    dataset = load_data(os.path.join(data_dir, 'pima-indians-diabetes.csv'))
+    dataset = load_classified_data(os.path.join(data_dir, 'pima-indians-diabetes.csv'))
     learning_rate, n_epoch, n_folds = 0.1, 100, 5
-    scores = evaluate_algrorithm(dataset, perceptron, n_folds, learning_rate, n_epoch)
+    scores = evaluate_algrorithm(dataset, perceptron, calc_accuracy, n_folds, learning_rate, n_epoch)
     print('Scores:', scores)

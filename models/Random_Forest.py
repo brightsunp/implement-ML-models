@@ -5,7 +5,7 @@ __author__ = 'sunp'
 __date__ = '2018/12/29'
 '''
 
-import math
+import random, math
 from Classification_And_Regression_Trees import *
 
 
@@ -87,13 +87,13 @@ def random_forest(train_set, test_set, max_depth, min_size, n_trees, sample_rati
 
 if __name__ == '__main__':
     data_dir = '../datasets'
-    dataset = load_data(os.path.join(data_dir, 'banknote_authentication.csv'))
+    dataset = load_classified_data(os.path.join(data_dir, 'banknote_authentication.csv'))
     # default arguments of sklearn.ensemble.RandomForestClassifier:
     # n_estimators=10 or 100, max_depth=None, max_features=sqrt(n_features)
     max_depth, min_size, n_folds = 5, 10, 5
     sample_ratio, n_features = 0.3, int(math.sqrt(len(dataset[0])-1))
     for n_trees in [3, 5, 10]:
-        scores = evaluate_algrorithm(dataset, random_forest, n_folds, max_depth, min_size, n_trees, sample_ratio, n_features)
+        scores = evaluate_algrorithm(dataset, random_forest, calc_accuracy, n_folds, max_depth, min_size, n_trees, sample_ratio, n_features)
         print('Trees:', n_trees)
         print('Scores:', scores)
         print('Mean Accuracy: {:.3%}'.format(sum(scores) / len(scores)))

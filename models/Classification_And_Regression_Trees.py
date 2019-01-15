@@ -5,21 +5,11 @@ __author__ = 'sunp'
 __date__ = '2018/12/27'
 '''
 
-import os, csv, random
+import os
+from common import load_classified_data, evaluate_algrorithm
 
 
 # 1. Handle data
-def load_data(data_file):
-    dataset = []
-    with open(data_file) as f:
-        f_csv = csv.reader(f)
-        for row in f_csv:
-            row[:-1] = [float(s) for s in row[:-1]]
-            row[-1] = int(row[-1])
-            dataset.append(row)
-    return dataset
-
-
 # 2. Create split
 def basis_split(index, value, dataset):
     # split the entire dataset by an attribute and an attribute value
@@ -128,42 +118,14 @@ def decision_tree(train_set, test_set, max_depth, min_size):
 
 
 # 5. Evaluate
-def cross_validation_split(dataset, n_folds):
-    dataset_split = []
-    # copy.deepcopy
-    dataset_copy = list(dataset)
-    fold_size = int(len(dataset) / n_folds)
-    for i in range(n_folds):
-        fold = []
-        while len(fold) < fold_size:
-            index = random.randrange(len(dataset_copy))
-            fold.append(dataset_copy.pop(index))
-        dataset_split.append(fold)
-    return dataset_split
-
-
 def calc_accuracy(test_set, predictions):
     is_correct = [test[-1] == pred for test, pred in zip(test_set, predictions)]
     return sum(is_correct) * 1.0 / len(is_correct)
 
 
-def evaluate_algrorithm(dataset, algorithm, n_folds, *args):
-    accuracies = []
-    folds = cross_validation_split(dataset, n_folds)
-    for fold in folds:
-        train_set, test_set = list(folds), list(fold)
-        train_set.remove(fold)
-        # convert list-of-lists to list
-        train_set = sum(train_set, [])
-        predictions = algorithm(train_set, test_set, *args)
-        accuracy = calc_accuracy(test_set, predictions)
-        accuracies.append(accuracy)
-    return accuracies
-
-
 if __name__ == '__main__':
     data_dir = '../datasets'
-    dataset = load_data(os.path.join(data_dir, 'banknote_authentication.csv'))
+    dataset = load_classified_data(os.path.join(data_dir, 'banknote_authentication.csv'))
     max_depth, min_size, n_folds = 5, 10, 5
-    scores = evaluate_algrorithm(dataset, decision_tree, n_folds, max_depth, min_size)
+    scores = evaluate_algrorithm(dataset, decision_tree, calc_accuracy, n_folds, max_depth, min_size)
     print('Scores:', scores)

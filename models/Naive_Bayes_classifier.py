@@ -9,7 +9,7 @@ import os, csv, random, math
 
 
 # 1. Handle data
-def load_data(data_file, split_ratio):
+def split_data(data_file, split_ratio):
     train_set, test_set = [], []
     with open(data_file) as f:
         f_csv = csv.reader(f)
@@ -82,7 +82,7 @@ def calc_accuracy(test_set, predictions):
 
 if __name__ == '__main__':
     data_dir = '../datasets'
-    train_set, test_set = load_data(os.path.join(data_dir, 'pima-indians-diabetes.csv'), 0.8)
+    train_set, test_set = split_data(os.path.join(data_dir, 'pima-indians-diabetes.csv'), 0.8)
     print('Train set:', len(train_set))
     print('Test set:', len(test_set))
     train_summarized = summarize_by_label(train_set)
